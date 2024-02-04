@@ -1,3 +1,20 @@
+/* 
+const iframe = document.querySelector('#vimeo-player');
+const player = new Player(iframe);
+
+const onPlay = data => {
+  const currentTime = JSON.stringify(data.seconds);
+  localStorage.setItem('videoplayer-current-time', currentTime);
+};
+
+const throttlePlay = throttle(onPlay, 1000);
+player.on('timeupdate', throttlePlay);
+
+player.setCurrentTime(
+  JSON.parse(localStorage.getItem('videoplayer-current-time'))
+);
+*/
+
 import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
 
@@ -39,11 +56,11 @@ try {
 
 /* AnitaPrzedwojewska
 
-import Vimeo from '@vimeo/player';
+import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
 
 const video = document.querySelector('#vimeo-player');
-const player = new Vimeo(video);
+const player = new Player(video);
 const localStorageKey = 'videoplayer-current-time';
 
 try {
@@ -57,7 +74,6 @@ const setTime = function (currentTime) {
   localStorage.setItem(localStorageKey, secondsStamp);
   console.log(secondsStamp);
 };
-
 player.on('timeupdate', throttle(setTime, 1000));
 
 */

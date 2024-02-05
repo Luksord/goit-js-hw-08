@@ -6,8 +6,8 @@ const messageInput = form.querySelector('textarea[name="message"]');
 const localStorageKey = 'feedback-form-state';
 
 function formInput() {
-  const email = emailInput.value;
-  const message = messageInput.value;
+  const email = emailInput.value.trim();
+  const message = messageInput.value.trim();
 }
 
 form.addEventListener(
@@ -17,17 +17,21 @@ form.addEventListener(
   }, 500)
 );
 
-const storedFormInput = localStorage.getItem(localStorageKey);
-if (storedFormInput) {
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const sentData = {
+    email: emailInput.value.trim(),
+    message: messageInput.value.trim(),
+  };
+  if (sentData.email === '' || sentData.message === '') {
+    alert('Both fields must be filled before sending');
+  } else {
+    localStorage.removeItem(localStorageKey);
+    form.reset();
+  }
+
+  const storedFormInput = localStorage.getItem(localStorageKey);
   const parsedFormImput = JSON.parse(storedFormInput);
   emailInput.value = parsedFormImput.email;
   messageInput.value = parsedFormImput.message;
-}
-
-form.addEventListener('submit', event => {
-  localStorage.removeItem(localStorageKey);
-  console.log('Formularz wysłany z danymi:', {
-    email: emailInput.value,
-    message: messageInput.value,
-  });
 });

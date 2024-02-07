@@ -30,8 +30,12 @@ form.addEventListener('submit', event => {
     form.reset();
   }
 
-  const storedFormInput = localStorage.getItem(localStorageKey);
-  const parsedFormImput = JSON.parse(storedFormInput);
-  emailInput.value = parsedFormImput.email;
-  messageInput.value = parsedFormImput.message;
+  try {
+    const storedFormInput = localStorage.getItem(localStorageKey);
+    const parsedFormImput = JSON.parse(storedFormInput);
+    emailInput.value = parsedFormImput.email;
+    messageInput.value = parsedFormImput.message;
+  } catch (error) {
+    console.log('error: ' + error);
+  }
 });

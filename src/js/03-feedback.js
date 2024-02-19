@@ -5,14 +5,13 @@ const emailInput = form.querySelector('input[name="email"]');
 const messageInput = form.querySelector('textarea[name="message"]');
 const localStorageKey = 'feedback-form-state';
 
-function formInput() {
-  const email = emailInput.value.trim();
-  const message = messageInput.value.trim();
-}
-
 form.addEventListener(
   'input',
   throttle(() => {
+    const formInput = {
+      email: email.value.trim(),
+      message: message.value.trim(),
+    };
     localStorage.setItem(localStorageKey, JSON.stringify(formInput));
   }, 500)
 );
@@ -36,6 +35,6 @@ form.addEventListener('submit', event => {
     emailInput.value = parsedFormImput.email;
     messageInput.value = parsedFormImput.message;
   } catch (error) {
-    console.log('error: ' + error);
+    console.log(error);
   }
 });
